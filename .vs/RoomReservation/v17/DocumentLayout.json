@@ -1,7 +1,24 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|c:\\users\\apurv\\desktop\\mapiq\\roomreservation\\roomreservation.domain\\entities\\externalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|solutionrelative:roomreservation.domain\\entities\\externalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|c:\\users\\apurv\\desktop\\mapiq\\roomreservation\\roomreservation.domain\\entities\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|solutionrelative:roomreservation.domain\\entities\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|c:\\users\\apurv\\desktop\\mapiq\\roomreservation\\roomreservation.domain\\entities\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|solutionrelative:roomreservation.domain\\entities\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|c:\\users\\apurv\\desktop\\mapiq\\roomreservation\\roomreservation.domain\\entities\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F2405C9-DED9-4ECC-B826-D8FE4B4CA6B7}|RoomReservation.Domain\\RoomReservation.Domain.csproj|solutionrelative:roomreservation.domain\\entities\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +26,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Client.cs",
+              "DocumentMoniker": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\Client.cs",
+              "RelativeDocumentMoniker": "RoomReservation.Domain\\Entities\\Client.cs",
+              "ToolTip": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\Client.cs",
+              "RelativeToolTip": "RoomReservation.Domain\\Entities\\Client.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T01:28:01.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ExternalServices.cs",
+              "DocumentMoniker": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\ExternalServices.cs",
+              "RelativeDocumentMoniker": "RoomReservation.Domain\\Entities\\ExternalServices.cs",
+              "ToolTip": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\ExternalServices.cs",
+              "RelativeToolTip": "RoomReservation.Domain\\Entities\\ExternalServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T01:20:41.974Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Room.cs",
+              "DocumentMoniker": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\Room.cs",
+              "RelativeDocumentMoniker": "RoomReservation.Domain\\Entities\\Room.cs",
+              "ToolTip": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\Room.cs",
+              "RelativeToolTip": "RoomReservation.Domain\\Entities\\Room.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T01:14:30.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Reservation.cs",
+              "DocumentMoniker": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\Reservation.cs",
+              "RelativeDocumentMoniker": "RoomReservation.Domain\\Entities\\Reservation.cs",
+              "ToolTip": "C:\\Users\\apurv\\Desktop\\Mapiq\\RoomReservation\\RoomReservation.Domain\\Entities\\Reservation.cs",
+              "RelativeToolTip": "RoomReservation.Domain\\Entities\\Reservation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T01:12:32.125Z",
+              "EditorCaption": ""
             }
           ]
         }

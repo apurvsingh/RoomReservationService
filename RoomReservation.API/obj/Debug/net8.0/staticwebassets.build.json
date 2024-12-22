@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "AwmhXxsNkSxiNGjvBXknj7svgUA9N89OjlE0b7ly39A=",
+  "Source": "RoomReservation.API",
+  "BasePath": "_content/RoomReservation.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,12 @@
+@host = http://localhost
+@port = 5160
+
+@RoomReservation.API_HostAddress = {{host}}:{{port}}
+
+GET {{RoomReservation.API_HostAddress}}/api/weatherforecast/example
+Accept: application/json
+Guid: {{$guid}}
+ProjectUrl: {{$projectUrl}}
+LocalDate: {{$datetime iso8601}}
+Random-int: {{$randomInt}}
+###

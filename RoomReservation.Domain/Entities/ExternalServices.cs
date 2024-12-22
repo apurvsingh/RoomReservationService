@@ -1,8 +1,7 @@
-﻿namespace RoomReservation.Domain.Entities
+﻿namespace RoomReservation.Domain.Entities;
+
+public static class ExternalServices
 {
-    public class ExternalServices
-    {
-        public required Guid Id { get; set; }
-        public required string Name { get; set; }
-    }
+    public static Guid Google = new Guid();
+    public static Guid Microsoft365 = new Guid();
 }

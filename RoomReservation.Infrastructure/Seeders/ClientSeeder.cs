@@ -32,8 +32,8 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                 Id = clientId1,
                 Name = "Dell",
                 ExternalServiceId = ExternalServices.Microsoft365,
-                Reservations = [
-                    new()
+                Reservations = new List<Reservation> {
+                    new Reservation()
                     {
                         Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
@@ -41,7 +41,7 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                         ClientId = clientId1,
                         Title = "Sprint planning - Team Alpha"
                     },
-                    new()
+                    new Reservation()
                     {
                         Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
@@ -49,7 +49,7 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                         ClientId = clientId1,
                         Title = "Sprint planning - Team Beta"
                     },
-                    new()
+                    new Reservation()
                     {
                         Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
@@ -57,7 +57,7 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                         ClientId = clientId1,
                         Title = "Sprint planning - Team Gamma"
                     }
-                ]
+                }
 
             },
 
@@ -66,8 +66,8 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                 Id = clientId2,
                 Name = "Oracle",
                 ExternalServiceId = ExternalServices.Google,
-                Reservations = [
-                    new()
+                Reservations = new List<Reservation>() {
+                    new Reservation()
                     {
                         Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
@@ -75,7 +75,7 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                         ClientId = clientId2,
                         Title = "HR - Performance Review"
                     },
-                    new()
+                    new Reservation()
                     {
                         Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
@@ -83,7 +83,7 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                         ClientId = clientId2,
                         Title = "1:1 - Manager"
                     }
-                ]
+                }
 
             },
 
@@ -107,4 +107,5 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
 
         };
     }
+
 }

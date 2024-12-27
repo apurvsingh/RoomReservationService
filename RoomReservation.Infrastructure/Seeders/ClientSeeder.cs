@@ -20,41 +20,29 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
 
     private IEnumerable<Client> GetClients()
     {
-        var clientId1 = Guid.NewGuid();
-        var clientId2 = Guid.NewGuid();
-        var clientId3 = Guid.NewGuid();
-
-
         return new List<Client>
         {
             new Client()
             {
-                Id = clientId1,
                 Name = "Dell",
                 ExternalServiceId = ExternalServices.Microsoft365,
                 Reservations = new List<Reservation> {
                     new Reservation()
                     {
-                        Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
-                        ClientId = clientId1,
                         Title = "Sprint planning - Team Alpha"
                     },
                     new Reservation()
                     {
-                        Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(30),
-                        ClientId = clientId1,
                         Title = "Sprint planning - Team Beta"
                     },
                     new Reservation()
                     {
-                        Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(90),
-                        ClientId = clientId1,
                         Title = "Sprint planning - Team Gamma"
                     }
                 }
@@ -63,24 +51,19 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
 
             new Client()
             {
-                Id = clientId2,
                 Name = "Oracle",
                 ExternalServiceId = ExternalServices.Google,
                 Reservations = new List<Reservation>() {
                     new Reservation()
                     {
-                        Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
-                        ClientId = clientId2,
                         Title = "HR - Performance Review"
                     },
                     new Reservation()
                     {
-                        Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(30),
-                        ClientId = clientId2,
                         Title = "1:1 - Manager"
                     }
                 }
@@ -89,16 +72,13 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
 
             new Client()
             {
-                Id = clientId3,
                 Name = "Atlas",
                 ExternalServiceId = ExternalServices.Google,
                 Reservations = [
-                    new()
+                    new Reservation()
                     {
-                        Id = Guid.NewGuid(),
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
-                        ClientId = clientId2,
                         Title = "Sales Pitch"
                     }
                 ]

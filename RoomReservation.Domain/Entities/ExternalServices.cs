@@ -2,6 +2,6 @@
 
 public static class ExternalServices
 {
-    public static Guid Google = new Guid();
-    public static Guid Microsoft365 = new Guid();
+    public static string Google = "google";
+    public static string Microsoft365 = "ms365";
 }

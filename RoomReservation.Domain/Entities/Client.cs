@@ -1,10 +1,17 @@
-﻿namespace RoomReservation.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace RoomReservation.Domain.Entities
 {
     public class Client
     {
-        public required Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public required string Name { get; set; }
-        public required Guid ExternalServiceId { get; set; }
+        public string? ExternalServiceId { get; set; }
+
+        [ForeignKey("ClientId")]
         public IEnumerable<Reservation>? Reservations { get; set; }
     }
 }

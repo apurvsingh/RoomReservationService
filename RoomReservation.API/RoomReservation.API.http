@@ -1,12 +1,27 @@
 @host = http://localhost
 @port = 5160
 
-@RoomReservation.API_HostAddress = {{host}}:{{port}}
+@RoomReservation.API_HostAddress = https://localhost:7073
 
-GET {{RoomReservation.API_HostAddress}}/api/weatherforecast/example
-Accept: application/json
-Guid: {{$guid}}
-ProjectUrl: {{$projectUrl}}
-LocalDate: {{$datetime iso8601}}
-Random-int: {{$randomInt}}
+
+###
+
+GET {{RoomReservation.API_HostAddress}}/api/clients
+
+
+###
+
+@id=4
+GET {{RoomReservation.API_HostAddress}}/api/clients/{{id}}
+
+###
+
+
+POST {{RoomReservation.API_HostAddress}}/api/clients
+Content-Type: application/json
+
+{
+  "Name": "Amazon"
+}
+
 ###

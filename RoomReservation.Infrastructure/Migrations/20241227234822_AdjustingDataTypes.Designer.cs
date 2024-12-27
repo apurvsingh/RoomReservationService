@@ -12,8 +12,8 @@ using RoomReservation.Infrastructure.Persistence;
 namespace RoomReservation.Infrastructure.Migrations
 {
     [DbContext(typeof(RoomReservationsDbContext))]
-    [Migration("20241226022732_Init")]
-    partial class Init
+    [Migration("20241227234822_AdjustingDataTypes")]
+    partial class AdjustingDataTypes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,12 +27,14 @@ namespace RoomReservation.Infrastructure.Migrations
 
             modelBuilder.Entity("RoomReservation.Domain.Entities.Client", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ExternalServiceId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ExternalServiceId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -45,12 +47,14 @@ namespace RoomReservation.Infrastructure.Migrations
 
             modelBuilder.Entity("RoomReservation.Domain.Entities.Reservation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");

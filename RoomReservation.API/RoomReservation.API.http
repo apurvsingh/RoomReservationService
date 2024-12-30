@@ -11,7 +11,7 @@ GET {{RoomReservation.API_HostAddress}}/api/clients
 
 ###
 
-@id=4
+@id=3
 GET {{RoomReservation.API_HostAddress}}/api/clients/{{id}}
 
 ###
@@ -21,7 +21,11 @@ POST {{RoomReservation.API_HostAddress}}/api/clients
 Content-Type: application/json
 
 {
-  "Name": "Amazon"
+  "Name": "ClientX"
 }
+
+###
+
+GET {{RoomReservation.API_HostAddress}}/api/bookings
 
 ###

@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<RoomReservationsDbContext>(options =>options.UseSqlServer(connectionString));
     
         services.AddScoped<IClientSeeder, ClientSeeder>();
-        services.AddScoped<IRoomReservationRepository, RoomReservationRepository>();
+        services.AddScoped<IClientRepository, ClientRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
     }
 }

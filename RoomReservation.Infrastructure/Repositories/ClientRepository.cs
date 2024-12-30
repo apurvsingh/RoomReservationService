@@ -5,7 +5,7 @@ using RoomReservation.Infrastructure.Persistence;
 
 namespace RoomReservation.Infrastructure.Repositories
 {
-    internal class RoomReservationRepository(RoomReservationsDbContext dbContext) : IRoomReservationRepository
+    internal class ClientRepository(RoomReservationsDbContext dbContext) : IClientRepository
     {
         public async Task<int> Create(Client entity)
         {
@@ -16,7 +16,7 @@ namespace RoomReservation.Infrastructure.Repositories
 
         public async Task<IEnumerable<Client>> GetAllClientsAsync()
         {
-            var clients = await dbContext.Clients.ToListAsync();
+            var clients = await dbContext.Clients.Include(c => c.Reservations).ToListAsync();
             return clients;
         }
 

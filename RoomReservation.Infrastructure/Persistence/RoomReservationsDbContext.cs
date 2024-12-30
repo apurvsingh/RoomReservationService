@@ -6,7 +6,7 @@ namespace RoomReservation.Infrastructure.Persistence;
 internal class RoomReservationsDbContext : DbContext
 {
     internal DbSet<Client> Clients { get; set; }
-    internal DbSet<Reservation> Reservations { get; set; }
+    internal DbSet<Booking> Bookings { get; set; }
     //internal DbSet<ExternalService> ExternalServices { get; set; }
 
     public RoomReservationsDbContext(DbContextOptions<RoomReservationsDbContext> options) : base(options)
@@ -19,7 +19,7 @@ internal class RoomReservationsDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Client>()
-            .HasMany(r => r.Reservations)
+            .HasMany(r => r.Bookings)
             .WithOne()
             .HasForeignKey(key => key.ClientId);
 

@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RoomReservation.Application.Clients;
 using RoomReservation.Application.Commands.CreateClient;
-using RoomReservation.Application.Dtos.Client;
 using RoomReservation.Application.Queries.GetAllClients;
 using RoomReservation.Application.Queries.GetClientById;
 

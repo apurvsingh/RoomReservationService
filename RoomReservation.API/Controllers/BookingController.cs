@@ -5,12 +5,12 @@ namespace RoomReservation.API.Controllers
 {
     [ApiController]
     [Route("api/bookings")]
-    public class ReservationController(IReservationService reservationService) : ControllerBase
+    public class BookingController(IBookingService bookingService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAllReservations()
+        public async Task<IActionResult> GetBookings()
         {
-            var reservations = await reservationService.GetAllReservations();
+            var reservations = await bookingService.GetBookings();
 
             if (reservations == null)
             {

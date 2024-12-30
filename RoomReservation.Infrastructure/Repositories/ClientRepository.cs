@@ -16,14 +16,14 @@ namespace RoomReservation.Infrastructure.Repositories
 
         public async Task<IEnumerable<Client>> GetAllClientsAsync()
         {
-            var clients = await dbContext.Clients.Include(c => c.Reservations).ToListAsync();
+            var clients = await dbContext.Clients.Include(c => c.Bookings).ToListAsync();
             return clients;
         }
 
         public async Task<Client?> GetClientByIdAsync(int id)
         {
             var client = await dbContext.Clients
-                .Include(c => c.Reservations)
+                .Include(c => c.Bookings)
                 .FirstOrDefaultAsync(c => c.Id == id);
             
             return client;

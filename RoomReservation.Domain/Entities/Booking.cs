@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RoomReservation.Domain.Entities;
 
-public class Reservation
+public class Booking
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

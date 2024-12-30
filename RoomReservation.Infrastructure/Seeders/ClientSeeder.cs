@@ -26,20 +26,20 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
             {
                 Name = "Dell",
                 ExternalServiceId = ExternalServices.Microsoft365,
-                Reservations = new List<Reservation> {
-                    new Reservation()
+                Bookings = new List<Booking> {
+                    new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
                         Title = "Sprint planning - Team Alpha"
                     },
-                    new Reservation()
+                    new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(30),
                         Title = "Sprint planning - Team Beta"
                     },
-                    new Reservation()
+                    new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(90),
@@ -53,14 +53,14 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
             {
                 Name = "Oracle",
                 ExternalServiceId = ExternalServices.Google,
-                Reservations = new List<Reservation>() {
-                    new Reservation()
+                Bookings = new List<Booking>() {
+                    new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
                         Title = "HR - Performance Review"
                     },
-                    new Reservation()
+                    new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(30),
@@ -74,8 +74,8 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
             {
                 Name = "Atlas",
                 ExternalServiceId = ExternalServices.Google,
-                Reservations = [
-                    new Reservation()
+                Bookings = [
+                    new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),

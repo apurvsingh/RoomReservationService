@@ -10,6 +10,6 @@ public class ClientsProfile : Profile
         CreateMap<CreateClientCommand, Domain.Entities.Client>();
         
         CreateMap<Domain.Entities.Client, ClientDto>()
-            .ForMember(c => c.Reservations, opt => opt.MapFrom(src => src.Reservations));
+            .ForMember(c => c.Bookings, opt => opt.MapFrom(src => src.Bookings));
     }
 }

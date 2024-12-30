@@ -17,6 +17,6 @@ public static class ServiceCollectionExtensions
     
         services.AddScoped<IClientSeeder, ClientSeeder>();
         services.AddScoped<IClientRepository, ClientRepository>();
-        services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
     }
 }

@@ -12,6 +12,6 @@ namespace RoomReservation.Domain.Entities
         public string? ExternalServiceId { get; set; }
 
         [ForeignKey("ClientId")]
-        public IEnumerable<Reservation>? Reservations { get; set; }
+        public IEnumerable<Booking>? Bookings { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace RoomReservation.Application.Dtos.Reservation
+﻿namespace RoomReservation.Application.Dtos.Booking
 {
-    public class ReservationDto
+    public class BookingDto
     {
         public required DateTime StartTime { get; set; }
         public required DateTime EndTime { get; set; }

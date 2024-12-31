@@ -6,6 +6,6 @@ namespace RoomReservation.Domain.Repositories
     {
         Task<int> Create(Booking entity);
         Task<IEnumerable<Booking>> GetAllReservationsAsync();
-        Task<Booking?> GetReservationByTimeAsync(int id);
+        Task<Booking?> GetReservationByTimeAsync(int id, Booking bookingRequestDto);
     }
 }

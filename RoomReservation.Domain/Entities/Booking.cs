@@ -13,4 +13,5 @@ public class Booking
     public string? Title { get; set; }
     public string? RoomId { get; set; }
     public int ClientId { get; set; }
+    public string? ExternalService { get; set; }
 }

@@ -16,15 +16,20 @@ internal class BookingRepository(RoomReservationsDbContext dbContext) : IBooking
 
     public async Task<IEnumerable<Booking>> GetAllReservationsAsync()
     {
-        var reservations = await dbContext.Bookings.ToListAsync();
-        return reservations;
+        var bookings = await dbContext.Bookings.ToListAsync();
+        return bookings;
     }
 
     public async Task<Booking?> GetReservationByTimeAsync(int id)
     {
-        var reservations = await dbContext.Bookings
+        var bookings = await dbContext.Bookings
             .FirstOrDefaultAsync(r => r.Id == id);
 
-        return reservations;
+        return bookings;
+    }
+
+    public Task<Booking?> GetReservationByTimeAsync(int id, Booking bookingRequestDto)
+    {
+        throw new NotImplementedException();
     }
 }

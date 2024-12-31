@@ -5,7 +5,9 @@ namespace RoomReservation.Application.Mappers.Booking;
 public interface IBookingMapper
 {
     BookingDto MapToViewModel(Domain.Entities.Booking booking);
-    IEnumerable<BookingDto> MapToViewModelList(IEnumerable<Domain.Entities.Booking> reservations);
+    IEnumerable<BookingDto> MapToViewModelList(IEnumerable<Domain.Entities.Booking> bookings);
+    Domain.Entities.Booking MapToEnitiy(int id, BookingRequestDto bookingRequestDto);
+
 }
 
 internal class BookingMapper : IBookingMapper
@@ -30,5 +32,18 @@ internal class BookingMapper : IBookingMapper
             result.Add(MapToViewModel(item));
         }
         return result;
+    }
+
+    public Domain.Entities.Booking MapToEnitiy(int id, BookingRequestDto bookingRequestDto)
+    {
+        return new Domain.Entities.Booking() 
+        {
+            StartTime = bookingRequestDto.StartTime,
+            EndTime = bookingRequestDto.EndTime,
+            Title = bookingRequestDto.Title,
+            RoomId = bookingRequestDto.RoomId,
+            ExternalService = bookingRequestDto.ExternalService,
+            ClientId = id
+        };
     }
 }

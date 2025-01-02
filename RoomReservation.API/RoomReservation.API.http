@@ -29,3 +29,13 @@ Content-Type: application/json
 GET {{RoomReservation.API_HostAddress}}/api/bookings
 
 ###
+
+
+GET {{RoomReservation.API_HostAddress}}/api/bookings/getreservations
+Content-Type: application/json
+clientId: 2
+
+{
+    "ExternalService" : "ms365"
+}
+###

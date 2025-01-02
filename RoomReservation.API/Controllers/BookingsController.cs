@@ -23,7 +23,8 @@ namespace RoomReservation.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBookingById(BookingRequestDto bookingRequest)
+        [Route("getreservations")]
+        public async Task<IActionResult> GetBookingById([FromBody]BookingRequestDto bookingRequest)
         {
             Request.Headers.TryGetValue("clientId", out var clientId);
 
@@ -31,10 +32,13 @@ namespace RoomReservation.API.Controllers
             {
                 return BadRequest();
             }
-            
-            var booking = await bookingService.GetBookingByClientId(clientId.FirstOrDefault(), bookingRequest);
 
-            if (booking == null)
+            bookingRequest.StartTime = DateTime.Now;
+            bookingRequest.EndTime = DateTime.Now.AddMinutes(10);
+
+            var booking = await bookingService.GetBookingsByClientId(clientId.FirstOrDefault(), bookingRequest);
+
+            if (booking.IsNullOrEmpty())
             {
                 return NoContent();
             }

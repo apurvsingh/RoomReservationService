@@ -36,6 +36,9 @@ namespace RoomReservation.Infrastructure.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ExternalService")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(max)");
 

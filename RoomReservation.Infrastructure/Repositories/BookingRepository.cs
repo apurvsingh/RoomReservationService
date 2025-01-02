@@ -1,17 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Infrastructure.Persistence;
+using System;
 
 namespace RoomReservation.Infrastructure.Repositories;
 
-internal class BookingRepository(RoomReservationsDbContext dbContext) : IBookingRepository
+internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<BookingRepository> logger) : IBookingRepository
 {
     public async Task<int> Create(Booking entity)
     {
-        dbContext.Bookings.Add(entity);
-        await dbContext.SaveChangesAsync();
-        return entity.Id;
+        try
+        {
+            dbContext.Bookings.Add(entity);
+            await dbContext.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        catch (DbUpdateConcurrencyException ex)
+        {
+            logger.LogInformation("Concurrency conflict detected while trying to create booking");
+            // Log the exception and handle conflict resolution
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
     }
 
     public async Task<IEnumerable<Booking>> GetAllReservationsAsync()
@@ -28,8 +43,12 @@ internal class BookingRepository(RoomReservationsDbContext dbContext) : IBooking
         return bookings;
     }
 
-    public Task<Booking?> GetReservationByTimeAsync(int id, Booking bookingRequestDto)
+    public async Task<List<Booking>> GetAllBookingsByClientIdAsync(Booking booking)
     {
-        throw new NotImplementedException();
+        var bookings = await dbContext.Bookings
+            .Where(b => b.ClientId == booking.ClientId &&
+                b.StartTime >= booking.StartTime && b.EndTime <= booking.EndTime).ToListAsync();
+
+        return bookings;
     }
 }

@@ -12,8 +12,8 @@ using RoomReservation.Infrastructure.Persistence;
 namespace RoomReservation.Infrastructure.Migrations
 {
     [DbContext(typeof(RoomReservationsDbContext))]
-    [Migration("20241230203541_ClientsAndBookings")]
-    partial class ClientsAndBookings
+    [Migration("20250102205248_SeedingData")]
+    partial class SeedingData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace RoomReservation.Infrastructure.Migrations
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ExternalService")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(max)");

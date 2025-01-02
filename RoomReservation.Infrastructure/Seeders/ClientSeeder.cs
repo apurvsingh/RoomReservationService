@@ -25,25 +25,32 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
             new Client()
             {
                 Name = "Dell",
-                ExternalServiceId = ExternalServices.Microsoft365,
+                ExternalServiceId = ExternalServices.Google,
                 Bookings = new List<Booking> {
                     new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
-                        Title = "Sprint planning - Team Alpha"
+                        Title = "Sprint planning - Team Alpha",
+                        ExternalService = ExternalServices.Google,
+                        RoomId = "10"
                     },
                     new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(30),
-                        Title = "Sprint planning - Team Beta"
+                        Title = "Sprint planning - Team Beta",
+                        ExternalService = ExternalServices.Google,
+                        RoomId = "33"
                     },
                     new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(90),
-                        Title = "Sprint planning - Team Gamma"
+                        Title = "Sprint planning - Team Gamma",
+                        ExternalService = ExternalServices.Google,
+                        RoomId = "32"
+
                     }
                 }
 
@@ -52,19 +59,23 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
             new Client()
             {
                 Name = "Oracle",
-                ExternalServiceId = ExternalServices.Google,
+                ExternalServiceId = ExternalServices.Microsoft365,
                 Bookings = new List<Booking>() {
                     new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
-                        Title = "HR - Performance Review"
+                        Title = "HR - Performance Review",
+                        ExternalService = ExternalServices.Microsoft365,
+                        RoomId = "48"
                     },
                     new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(30),
-                        Title = "1:1 - Manager"
+                        Title = "1:1 - Manager",
+                        ExternalService = ExternalServices.Microsoft365,
+                        RoomId = "4"
                     }
                 }
 
@@ -73,13 +84,13 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
             new Client()
             {
                 Name = "Atlas",
-                ExternalServiceId = ExternalServices.Google,
                 Bookings = [
                     new Booking()
                     {
                         StartTime = DateTime.Now,
                         EndTime = DateTime.Now.AddMinutes(60),
-                        Title = "Sales Pitch"
+                        Title = "Sales Pitch",
+                        RoomId = "5"
                     }
                 ]
 

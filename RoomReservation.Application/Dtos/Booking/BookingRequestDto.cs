@@ -2,9 +2,9 @@
 
 public class BookingRequestDto
 {
-    public required DateTime StartTime { get; set; }
-    public required DateTime EndTime { get; set; }
+    public DateTime StartTime { get; set; }
+    public  DateTime EndTime { get; set; }
     public string? Title { get; set; }
     public string? RoomId { get; set; }
-    public string? ExternalService { get; set; }
+    public string ExternalService { get; set; }
 }

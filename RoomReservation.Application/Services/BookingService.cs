@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using RoomReservation.Application.Dtos.Booking;
 using RoomReservation.Application.Mappers.Booking;
+using RoomReservation.Application.Utilities.Factory;
 using RoomReservation.Application.Utilities.Strategy.Booking;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
@@ -11,13 +12,14 @@ namespace RoomReservation.Application.Services;
 public interface IBookingService
 {
     Task<IEnumerable<BookingDto>> GetBookings();
-    Task<IEnumerable<BookingDto>> GetBookingByClientId (string id, BookingRequestDto bookingRequest);
+    Task<IEnumerable<BookingDto>> GetBookingsByClientId (string id, BookingRequestDto bookingRequest);
 }
 
-internal class BookingService(
+public class BookingService(
         IBookingRepository bookingRepository,
         IBookingMapper bookingMapper,
-        ILogger<BookingService> logger) : IBookingService
+        ILogger<BookingService> logger,
+        BookingStrategyFactory _strategyFactory) : IBookingService
 {
     public async Task<IEnumerable<BookingDto>> GetBookings()
     {
@@ -32,24 +34,24 @@ internal class BookingService(
         return bookingMapper.MapToViewModelList(bookings);
     }
 
-    public async Task<IEnumerable<BookingDto>> GetBookingByClientId(string id, BookingRequestDto bookingRequestDto)
+    public async Task<IEnumerable<BookingDto>> GetBookingsByClientId(string clientId, BookingRequestDto bookingRequestDto)
     {
-        int intId = int.Parse(id);
-        List<Booking> bookings = null;
-
-
-        var bookingRequest = bookingMapper.MapToEnitiy(intId, bookingRequestDto);
-
-        if (ExternalServiceDictionary.ExternalServiceStrategies.TryGetValue(bookingRequestDto.ExternalService, out var strategy))
+        var emptyList = Enumerable.Empty<BookingDto>();
+        bool parseSuccessful = int.TryParse(clientId, out int intId);
+        
+        if(!parseSuccessful)
         {
-            bookings = await strategy.GetBookings(bookingRequestDto.StartTime, bookingRequestDto.EndTime);
+            return emptyList;
         }
 
-        else
-        {
-            Console.WriteLine($"Payment strategy with ID '{bookingRequestDto.ExternalService}' not supported.");
-        }
+        List<Booking>? bookings = null;
+        Booking bookingRequest = bookingMapper.MapToEnitiy(intId, bookingRequestDto);
 
-        return bookings?.Count > 0  ? bookingMapper.MapToViewModelList(bookings) : Enumerable.Empty<BookingDto>();
+        var strategy = _strategyFactory.GetStrategy(bookingRequestDto.ExternalService);
+
+        bookings = await strategy.GetBookings(bookingRequest);
+        
+
+        return bookings?.Count > 0  ? bookingMapper.MapToViewModelList(bookings) : emptyList;
     }
 }

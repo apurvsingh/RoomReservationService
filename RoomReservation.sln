@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomReservation.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomReservation.Infrastructure", "RoomReservation.Infrastructure\RoomReservation.Infrastructure.csproj", "{658B1E3A-5469-42B9-9F22-F1529FD0F799}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomReservation.Common", "RoomReservation.Common\RoomReservation.Common.csproj", "{7DD8A30A-C5BB-4572-B51D-ECBCF6632284}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{658B1E3A-5469-42B9-9F22-F1529FD0F799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{658B1E3A-5469-42B9-9F22-F1529FD0F799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{658B1E3A-5469-42B9-9F22-F1529FD0F799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD8A30A-C5BB-4572-B51D-ECBCF6632284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD8A30A-C5BB-4572-B51D-ECBCF6632284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD8A30A-C5BB-4572-B51D-ECBCF6632284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD8A30A-C5BB-4572-B51D-ECBCF6632284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

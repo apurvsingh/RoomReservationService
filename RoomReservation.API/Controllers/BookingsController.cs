@@ -42,5 +42,25 @@ namespace RoomReservation.API.Controllers
 
             return Ok(booking);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBooking([FromBody] BookingRequestDto bookingRequestDto)
+        {
+            Request.Headers.TryGetValue("clientId", out var clientId);
+
+            if (clientId.IsNullOrEmpty() || clientId.FirstOrDefault().IsNullOrEmpty() || bookingRequestDto is null)
+            {
+                return BadRequest();
+            }
+
+            var booking = await bookingService.CreateBooking(clientId.FirstOrDefault(), bookingRequestDto);
+
+            if (booking == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(booking);
+        }
     }
 }

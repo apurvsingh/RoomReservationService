@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IBookingStrategy, DefaultBookingStrategy>();
         
         // Register factory
-        services.AddScoped<BookingStrategyFactory>();
+        services.AddScoped<IBookingStrategyFactory, BookingStrategyFactory>();
 
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
         services.AddMediatR(config => config.RegisterServicesFromAssembly(applicationAssembly));

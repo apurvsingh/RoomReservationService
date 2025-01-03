@@ -33,9 +33,6 @@ namespace RoomReservation.API.Controllers
                 return BadRequest();
             }
 
-            bookingRequest.StartTime = DateTime.Now;
-            bookingRequest.EndTime = DateTime.Now.AddMinutes(10);
-
             var booking = await bookingService.GetBookingsByClientId(clientId.FirstOrDefault(), bookingRequest);
 
             if (booking.IsNullOrEmpty())

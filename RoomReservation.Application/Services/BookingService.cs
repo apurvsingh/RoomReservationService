@@ -19,7 +19,7 @@ public class BookingService(
         IBookingRepository bookingRepository,
         IBookingMapper bookingMapper,
         ILogger<BookingService> logger,
-        BookingStrategyFactory _strategyFactory) : IBookingService
+        IBookingStrategyFactory _strategyFactory) : IBookingService
 {
     public async Task<IEnumerable<BookingDto>> GetBookings()
     {

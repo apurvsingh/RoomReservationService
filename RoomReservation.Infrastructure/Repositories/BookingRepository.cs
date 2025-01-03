@@ -27,6 +27,8 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
+
+        return -1;
     }
 
     public async Task<IEnumerable<Booking>> GetAllReservationsAsync()
@@ -46,8 +48,10 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
     public async Task<List<Booking>> GetAllBookingsByClientIdAsync(Booking booking)
     {
         var bookings = await dbContext.Bookings
-            .Where(b => b.ClientId == booking.ClientId &&
-                b.StartTime >= booking.StartTime && b.EndTime <= booking.EndTime).ToListAsync();
+            .Where(b => b.ClientId == booking.ClientId )
+            //&&
+            //    b.StartTime >= booking.StartTime && b.EndTime <= booking.EndTime)
+            .ToListAsync();
 
         return bookings;
     }

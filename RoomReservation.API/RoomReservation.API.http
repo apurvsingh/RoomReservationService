@@ -36,6 +36,6 @@ Content-Type: application/json
 clientId: 2
 
 {
-    "ExternalService" : "ms365"
+    "ExternalService" : "google"
 }
 ###

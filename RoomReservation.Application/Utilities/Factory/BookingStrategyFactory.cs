@@ -2,7 +2,12 @@
 
 namespace RoomReservation.Application.Utilities.Factory;
 
-public class BookingStrategyFactory
+public interface IBookingStrategyFactory
+{
+    IBookingStrategy GetStrategy(string externalService);
+}
+
+internal class BookingStrategyFactory : IBookingStrategyFactory
 {
     private readonly IEnumerable<IBookingStrategy> _strategies;
 

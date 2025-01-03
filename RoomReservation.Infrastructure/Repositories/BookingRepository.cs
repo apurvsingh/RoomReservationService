@@ -3,19 +3,27 @@ using Microsoft.Extensions.Logging;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Infrastructure.Persistence;
-using System;
 
 namespace RoomReservation.Infrastructure.Repositories;
 
 internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<BookingRepository> logger) : IBookingRepository
 {
-    public async Task<int> Create(Booking entity)
+    public async Task<int> Create(Booking request)
     {
         try
         {
-            dbContext.Bookings.Add(entity);
-            await dbContext.SaveChangesAsync();
-            return entity.Id;
+            var check = dbContext.Bookings.Any(
+                b => 
+                b.RoomId.Equals(request.RoomId) && 
+                b.StartTime < request.EndTime && b.EndTime > request.StartTime
+            );
+
+            if (check) 
+            {
+                dbContext.Bookings.Add(request);
+                await dbContext.SaveChangesAsync();
+                return request.Id;
+            }
         }
 
         catch (DbUpdateConcurrencyException ex)
@@ -23,6 +31,7 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
             logger.LogInformation("Concurrency conflict detected while trying to create booking");
             // Log the exception and handle conflict resolution
         }
+
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");

@@ -19,9 +19,11 @@ namespace RoomReservation.Application.Utilities.Strategy.Booking
 
         public string ServiceName => ExternalServices.Microsoft365;
 
-        public void CreateBooking(Domain.Entities.Booking booking)
+        public async Task<int> CreateBooking(string clientId, Domain.Entities.Booking bookingReq)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Creating a new booking using Ms365 Service");
+            var id = await _bookingRepository.Create(bookingReq);
+            return id;
         }
 
         public async Task<List<Domain.Entities.Booking>> GetBookings(Domain.Entities.Booking booking)

@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using RoomReservation.Application.Dtos.Client;
+﻿using Microsoft.Extensions.Logging;
 using RoomReservation.Application.Services;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
@@ -23,9 +20,11 @@ public class GoogleBookingStrategy : IBookingStrategy
 
     public string ServiceName => ExternalServices.Google;
 
-    public void CreateBooking(Domain.Entities.Booking booking)
+    public async Task<int> CreateBooking(string clientId, Domain.Entities.Booking bookingReq)
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("Creating a new booking using Google Service");
+        var id = await _bookingRepository.Create(bookingReq);
+        return id;
     }
 
     public async Task<List<Domain.Entities.Booking>> GetBookings(Domain.Entities.Booking booking)

@@ -13,6 +13,7 @@ public interface IBookingService
 {
     Task<IEnumerable<BookingDto>> GetBookings();
     Task<IEnumerable<BookingDto>> GetBookingsByClientId (string id, BookingRequestDto bookingRequest);
+    Task<int> CreateBooking(string clientId, BookingRequestDto bookingRequestDto);
 }
 
 public class BookingService(
@@ -21,6 +22,7 @@ public class BookingService(
         ILogger<BookingService> logger,
         IBookingStrategyFactory _strategyFactory) : IBookingService
 {
+    
     public async Task<IEnumerable<BookingDto>> GetBookings()
     {
         logger.LogInformation("Getting all bookings");
@@ -53,5 +55,23 @@ public class BookingService(
         
 
         return bookings?.Count > 0  ? bookingMapper.MapToViewModelList(bookings) : emptyList;
+    }
+
+    public async Task<int> CreateBooking(string clientId, BookingRequestDto bookingRequestDto)
+    {
+        bool parseSuccessful = int.TryParse(clientId, out int intId);
+
+        if (!parseSuccessful)
+        {
+            return -1;
+        }
+
+        var bookingReq = bookingMapper.MapToEnitiy(bookingRequestDto);
+
+        var strategy = _strategyFactory.GetStrategy(bookingRequestDto.ExternalService);
+
+        int result = await strategy.CreateBooking(clientId, bookingReq);
+
+        return result;
     }
 }

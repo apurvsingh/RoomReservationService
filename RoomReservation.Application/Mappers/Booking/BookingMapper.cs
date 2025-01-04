@@ -8,8 +8,6 @@ public interface IBookingMapper
     IEnumerable<BookingDto> MapToViewModelList(IEnumerable<Domain.Entities.Booking> bookings);
     Domain.Entities.Booking MapToEnitiy(int id, BookingRequestDto bookingRequestDto);
     Domain.Entities.Booking MapToEnitiy(BookingRequestDto bookingRequestDto);
-
-
 }
 
 internal class BookingMapper : IBookingMapper
@@ -18,8 +16,8 @@ internal class BookingMapper : IBookingMapper
     {
         return new BookingDto()
         {
-            StartTime = booking.StartTime,
-            EndTime = booking.EndTime,
+            StartTime = booking.StartTime.ToUniversalTime(),
+            EndTime = booking.EndTime.ToUniversalTime(),
             RoomId = booking.RoomId,
             Title = booking.Title,
         };
@@ -40,8 +38,8 @@ internal class BookingMapper : IBookingMapper
     {
         return new Domain.Entities.Booking() 
         {
-            StartTime = bookingRequestDto.StartTime,
-            EndTime = bookingRequestDto.EndTime,
+            StartTime = bookingRequestDto.StartTime.ToUniversalTime(),
+            EndTime = bookingRequestDto.EndTime.ToUniversalTime(),
             Title = bookingRequestDto.Title,
             RoomId = bookingRequestDto.RoomId,
             ExternalService = bookingRequestDto.ExternalService,
@@ -53,8 +51,8 @@ internal class BookingMapper : IBookingMapper
     {
         return new Domain.Entities.Booking()
         {
-            StartTime = bookingRequestDto.StartTime,
-            EndTime = bookingRequestDto.EndTime,
+            StartTime = bookingRequestDto.StartTime.ToUniversalTime(),
+            EndTime = bookingRequestDto.EndTime.ToUniversalTime(),
             Title = bookingRequestDto.Title,
             RoomId = bookingRequestDto.RoomId,
             ExternalService = bookingRequestDto.ExternalService

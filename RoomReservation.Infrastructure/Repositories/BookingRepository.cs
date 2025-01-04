@@ -12,13 +12,13 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
     {
         try
         {
-            var check = dbContext.Bookings.Any(
-                b => 
-                b.RoomId.Equals(request.RoomId) && 
-                b.StartTime < request.EndTime && b.EndTime > request.StartTime
-            );
+            var isTimeSlotUnavailable = dbContext.Bookings.Where(b => b.RoomId == request.RoomId)
+                .Any(b =>
+                    (request.StartTime < b.StartTime && request.EndTime > b.StartTime) ||
+                    (request.StartTime >= b.StartTime && request.StartTime < b.EndTime)
+                );
 
-            if (check) 
+            if (!isTimeSlotUnavailable) 
             {
                 dbContext.Bookings.Add(request);
                 await dbContext.SaveChangesAsync();
@@ -28,7 +28,7 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
 
         catch (DbUpdateConcurrencyException ex)
         {
-            logger.LogInformation("Concurrency conflict detected while trying to create booking");
+            logger.LogInformation($"Concurrency conflict detected while trying to create booking : {ex.Message}");
             // Log the exception and handle conflict resolution
         }
 

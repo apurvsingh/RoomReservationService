@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RoomReservation.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedingData : Migration
+    public partial class ValidSeedDataInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -66,7 +66,7 @@ public class BookingService(
             return -1;
         }
 
-        var bookingReq = bookingMapper.MapToEnitiy(bookingRequestDto);
+        var bookingReq = bookingMapper.MapToEnitiy(intId ,bookingRequestDto);
 
         var strategy = _strategyFactory.GetStrategy(bookingRequestDto.ExternalService);
 

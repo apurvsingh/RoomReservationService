@@ -29,31 +29,38 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                 Bookings = new List<Booking> {
                     new Booking()
                     {
-                        StartTime = DateTime.Now,
-                        EndTime = DateTime.Now.AddMinutes(60),
+                        StartTime = new DateTime(2024, 12, 10, 7, 30, 0, DateTimeKind.Utc),
+                        EndTime = new DateTime(2024, 12, 10, 9, 0, 0, DateTimeKind.Utc),
+                        Title = "Sprint planning - Team Delta",
+                        ExternalService = ExternalServices.Google,
+                        RoomId = "10"
+                    },
+                    new Booking()
+                    {
+                        StartTime = new DateTime(2024, 12, 31, 15, 30, 0, DateTimeKind.Utc),
+                        EndTime = new DateTime(2024, 12, 31, 16, 0, 0, DateTimeKind.Utc),
                         Title = "Sprint planning - Team Alpha",
                         ExternalService = ExternalServices.Google,
                         RoomId = "10"
                     },
                     new Booking()
                     {
-                        StartTime = DateTime.Now,
-                        EndTime = DateTime.Now.AddMinutes(30),
+                        StartTime = new DateTime(2024, 12, 31, 9, 0, 0, DateTimeKind.Utc),
+                        EndTime = new DateTime(2024, 12, 31, 9, 30, 0, DateTimeKind.Utc),
                         Title = "Sprint planning - Team Beta",
                         ExternalService = ExternalServices.Google,
                         RoomId = "33"
                     },
                     new Booking()
                     {
-                        StartTime = DateTime.Now,
-                        EndTime = DateTime.Now.AddMinutes(90),
+                        StartTime = new DateTime(2024, 12, 31, 23, 0, 0, DateTimeKind.Utc),
+                        EndTime = new DateTime(2024, 12, 31, 23, 0, 0, DateTimeKind.Utc).AddMinutes(120),
                         Title = "Sprint planning - Team Gamma",
                         ExternalService = ExternalServices.Google,
                         RoomId = "32"
 
                     }
                 }
-
             },
 
             new Client()
@@ -63,22 +70,21 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                 Bookings = new List<Booking>() {
                     new Booking()
                     {
-                        StartTime = DateTime.Now,
-                        EndTime = DateTime.Now.AddMinutes(60),
+                        StartTime = new DateTime(2024, 12, 18, 9, 0, 0, DateTimeKind.Utc),
+                        EndTime = new DateTime(2024, 12, 18, 10, 30, 0, DateTimeKind.Utc),
                         Title = "HR - Performance Review",
                         ExternalService = ExternalServices.Microsoft365,
                         RoomId = "48"
                     },
                     new Booking()
                     {
-                        StartTime = DateTime.Now,
-                        EndTime = DateTime.Now.AddMinutes(30),
+                        StartTime = new DateTime(2024, 12, 20, 10, 30, 0, DateTimeKind.Utc),
+                        EndTime = new DateTime(2024, 12, 20, 11, 30, 0, DateTimeKind.Utc),
                         Title = "1:1 - Manager",
                         ExternalService = ExternalServices.Microsoft365,
                         RoomId = "4"
                     }
                 }
-
             },
 
             new Client()
@@ -87,8 +93,8 @@ internal class ClientSeeder(RoomReservationsDbContext dbContext) : IClientSeeder
                 Bookings = [
                     new Booking()
                     {
-                        StartTime = DateTime.Now,
-                        EndTime = DateTime.Now.AddMinutes(60),
+                        StartTime = new DateTime(2025, 1, 4, 14, 30, 0, DateTimeKind.Utc),
+                        EndTime = new DateTime(2025, 1, 4, 14, 30, 0, DateTimeKind.Utc).AddMinutes(60),
                         Title = "Sales Pitch",
                         RoomId = "5"
                     }

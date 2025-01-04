@@ -12,13 +12,13 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
     {
         try
         {
-            var isTimeSlotUnavailable = dbContext.Bookings.Where(b => b.RoomId == request.RoomId)
+            var isTimeSlotAvailable = !dbContext.Bookings.Where(b => b.RoomId == request.RoomId)
                 .Any(b =>
                     (request.StartTime < b.StartTime && request.EndTime > b.StartTime) ||
                     (request.StartTime >= b.StartTime && request.StartTime < b.EndTime)
                 );
 
-            if (!isTimeSlotUnavailable) 
+            if (isTimeSlotAvailable) 
             {
                 dbContext.Bookings.Add(request);
                 await dbContext.SaveChangesAsync();

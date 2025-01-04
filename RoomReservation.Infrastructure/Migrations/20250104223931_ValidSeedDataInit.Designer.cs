@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RoomReservation.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using RoomReservation.Infrastructure.Persistence;
 namespace RoomReservation.Infrastructure.Migrations
 {
     [DbContext(typeof(RoomReservationsDbContext))]
-    partial class RoomReservationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250104223931_ValidSeedDataInit")]
+    partial class ValidSeedDataInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,13 +80,11 @@ namespace RoomReservation.Infrastructure.Migrations
 
             modelBuilder.Entity("RoomReservation.Domain.Entities.Booking", b =>
                 {
-                    b.HasOne("RoomReservation.Domain.Entities.Client", "Client")
+                    b.HasOne("RoomReservation.Domain.Entities.Client", null)
                         .WithMany("Bookings")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("RoomReservation.Domain.Entities.Client", b =>

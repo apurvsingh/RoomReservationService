@@ -33,9 +33,26 @@ GET {{RoomReservation.API_HostAddress}}/api/bookings
 
 GET {{RoomReservation.API_HostAddress}}/api/bookings/getreservations
 Content-Type: application/json
-clientId: 2
+clientId: 1
 
 {
-    "ExternalService" : "google"
+     
+    "externalService" : "google"
 }
+###
+
+
+//overlap request
+POST {{RoomReservation.API_HostAddress}}/api/bookings
+Content-Type: application/json
+clientId: 1
+
+{
+    "startTime": "2025-01-04T14:00:00", 
+    "endTime": "2025-01-04T15:00:00", 
+    "title": "Team Meeting", 
+    "roomId": "5", 
+    "externalService" : "google"
+}
+
 ###

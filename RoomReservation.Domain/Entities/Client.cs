@@ -8,10 +8,11 @@ namespace RoomReservation.Domain.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         public required string Name { get; set; }
         public string? ExternalServiceId { get; set; }
 
-        [ForeignKey("ClientId")]
-        public IEnumerable<Booking>? Bookings { get; set; }
+        // Navigation Property: One-to-Many relationship
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

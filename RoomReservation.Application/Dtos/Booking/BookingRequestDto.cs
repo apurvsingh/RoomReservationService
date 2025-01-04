@@ -7,4 +7,5 @@ public class BookingRequestDto
     public string? Title { get; set; }
     public string? RoomId { get; set; }
     public string ExternalService { get; set; }
+    public int ClientId { get; set; }
 }

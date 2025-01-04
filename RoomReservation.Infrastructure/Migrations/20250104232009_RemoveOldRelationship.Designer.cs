@@ -12,8 +12,8 @@ using RoomReservation.Infrastructure.Persistence;
 namespace RoomReservation.Infrastructure.Migrations
 {
     [DbContext(typeof(RoomReservationsDbContext))]
-    [Migration("20250102205248_SeedingData")]
-    partial class SeedingData
+    [Migration("20250104232009_RemoveOldRelationship")]
+    partial class RemoveOldRelationship
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,11 +80,13 @@ namespace RoomReservation.Infrastructure.Migrations
 
             modelBuilder.Entity("RoomReservation.Domain.Entities.Booking", b =>
                 {
-                    b.HasOne("RoomReservation.Domain.Entities.Client", null)
+                    b.HasOne("RoomReservation.Domain.Entities.Client", "Client")
                         .WithMany("Bookings")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("RoomReservation.Domain.Entities.Client", b =>

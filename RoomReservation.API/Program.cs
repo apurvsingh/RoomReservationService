@@ -1,7 +1,9 @@
+using RoomReservation.API.Middleware;
 using RoomReservation.Application.Extensions;
 using RoomReservation.Common.Extensions;
 using RoomReservation.Infrastructure.Extensions;
 using RoomReservation.Infrastructure.Seeders;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddCommonServices();   
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Host.UseSerilog((context, configuration) => {
+    configuration
+    .ReadFrom.Configuration(context.Configuration);
+});
 
 var app = builder.Build();
 
@@ -22,6 +33,16 @@ var seeder = scope.ServiceProvider.GetRequiredService<IClientSeeder>();
 await seeder.Seed();
 
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseSerilogRequestLogging();
+
+if(app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 

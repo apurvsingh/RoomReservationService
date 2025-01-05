@@ -10,7 +10,7 @@ namespace RoomReservation.API.Controllers
     public class BookingsController(IBookingService bookingService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetBookings()
+        public async Task<ActionResult<IEnumerable<BookingDto>>> GetBookings()
         {
             var bookings = await bookingService.GetBookings();
 
@@ -24,7 +24,7 @@ namespace RoomReservation.API.Controllers
 
         [HttpGet]
         [Route("getreservations")]
-        public async Task<IActionResult> GetBookingById([FromBody]BookingRequestDto bookingRequest)
+        public async Task<ActionResult<BookingDto>> GetBookingById([FromBody]BookingRequestDto bookingRequest)
         {
             Request.Headers.TryGetValue("clientId", out var clientId);
 
@@ -44,7 +44,7 @@ namespace RoomReservation.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBooking([FromBody] BookingRequestDto bookingRequestDto)
+        public async Task<ActionResult<BookingDto>> CreateBooking([FromBody] BookingRequestDto bookingRequestDto)
         {
             Request.Headers.TryGetValue("clientId", out var clientId);
 
@@ -54,11 +54,6 @@ namespace RoomReservation.API.Controllers
             }
 
             var booking = await bookingService.CreateBooking(clientId.FirstOrDefault(), bookingRequestDto);
-
-            if (booking == null)
-            {
-                return NoContent();
-            }
 
             return Ok(booking);
         }

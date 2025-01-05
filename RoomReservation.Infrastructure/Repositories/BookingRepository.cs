@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RoomReservation.Domain.Entities;
+using RoomReservation.Domain.Exceptions;
 using RoomReservation.Domain.Repositories;
 using RoomReservation.Infrastructure.Persistence;
 
@@ -32,9 +33,15 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
             // Log the exception and handle conflict resolution
         }
 
+        catch (DbUpdateException ex)
+        {
+            logger.LogInformation($"Something went wrong at the database level : {ex.Message}");
+            throw new ClientNotFoundException(ex.Message);
+        }
+
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            throw new BookingNotCreatedException(ex.Message);
         }
 
         return -1;
@@ -54,12 +61,12 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
         return bookings;
     }
 
-    public async Task<List<Booking>> GetAllBookingsByClientIdAsync(Booking booking)
+    public async Task<List<Booking>> GetAllBookingsByClientIdAsync(Booking request)
     {
         var bookings = await dbContext.Bookings
-            .Where(b => b.ClientId == booking.ClientId )
+            .Where(b => b.ClientId == request.ClientId )
             //&&
-            //    b.StartTime >= booking.StartTime && b.EndTime <= booking.EndTime)
+            //    b.StartTime >= request.StartTime && b.EndTime <= request.EndTime)
             .ToListAsync();
 
         return bookings;

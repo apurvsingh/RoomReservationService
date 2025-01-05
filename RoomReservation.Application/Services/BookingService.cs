@@ -4,6 +4,7 @@ using RoomReservation.Application.Mappers.Booking;
 using RoomReservation.Application.Utilities.Factory;
 using RoomReservation.Application.Utilities.Strategy.Booking;
 using RoomReservation.Domain.Entities;
+using RoomReservation.Domain.Exceptions;
 using RoomReservation.Domain.Repositories;
 
 namespace RoomReservation.Application.Services;
@@ -13,7 +14,7 @@ public interface IBookingService
 {
     Task<IEnumerable<BookingDto>> GetBookings();
     Task<IEnumerable<BookingDto>> GetBookingsByClientId (string id, BookingRequestDto bookingRequest);
-    Task<int> CreateBooking(string clientId, BookingRequestDto bookingRequestDto);
+    Task<BookingDto> CreateBooking(string clientId, BookingRequestDto bookingRequestDto);
 }
 
 public class BookingService(
@@ -43,7 +44,7 @@ public class BookingService(
         
         if(!parseSuccessful)
         {
-            return emptyList;
+            throw new ClientNotFoundException($"Client Id: {clientId} does not exist");
         }
 
         List<Booking>? bookings = null;
@@ -57,13 +58,13 @@ public class BookingService(
         return bookings?.Count > 0  ? bookingMapper.MapToViewModelList(bookings) : emptyList;
     }
 
-    public async Task<int> CreateBooking(string clientId, BookingRequestDto bookingRequestDto)
+    public async Task<BookingDto> CreateBooking(string clientId, BookingRequestDto bookingRequestDto)
     {
         bool parseSuccessful = int.TryParse(clientId, out int intId);
 
         if (!parseSuccessful)
         {
-            return -1;
+            throw new ClientNotFoundException($"Client Id: {clientId} does not exist");
         }
 
         var bookingReq = bookingMapper.MapToEnitiy(intId ,bookingRequestDto);
@@ -72,6 +73,16 @@ public class BookingService(
 
         int result = await strategy.CreateBooking(clientId, bookingReq);
 
-        return result;
+        var bookingResponse = new BookingDto();
+        
+        if(result == -1)
+        {
+            bookingResponse.Validation = new Dtos.Validation()
+            {
+                Message = $"The room with id {bookingReq.RoomId} is already booked during the requested time period. Please try another room or change the time frame."
+            };
+        }
+
+        return bookingResponse;
     }
 }

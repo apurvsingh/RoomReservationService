@@ -28,7 +28,7 @@ internal class BookingStrategyFactory : IBookingStrategyFactory
 
         if (strategy.Count() > 1) 
         {
-            throw new InvalidOperationException($"Multiple strategies found for ID: {externalService}");
+            throw new InvalidOperationException($"Multiple strategies found for External Service: {externalService}");
         }
 
         return strategy.First();

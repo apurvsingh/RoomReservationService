@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using RoomReservation.Application.Clients;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 

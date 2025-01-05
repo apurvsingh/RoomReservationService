@@ -22,13 +22,15 @@ namespace RoomReservation.Application.Utilities.Strategy.Booking
         public async Task<int> CreateBooking(string clientId, Domain.Entities.Booking bookingReq)
         {
             _logger.LogInformation("Creating a new booking using Ms365 Service");
+
             var id = await _bookingRepository.Create(bookingReq);
             return id;
         }
 
         public async Task<List<Domain.Entities.Booking>> GetBookings(Domain.Entities.Booking booking)
         {
-            _logger.LogInformation($"Getting bookings/reservations for client ID {booking.Id} using MS365 Service");
+            _logger.LogInformation($"Getting bookings/reservations for client ID {booking.ClientId} using MS365 Service");
+
             var bookings = await _bookingRepository.GetAllBookingsByClientIdAsync(booking);
             return bookings;
         }

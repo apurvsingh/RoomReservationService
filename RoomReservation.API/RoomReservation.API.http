@@ -11,7 +11,7 @@ GET {{RoomReservation.API_HostAddress}}/api/clients
 
 ###
 
-@id=3
+@id=1
 GET {{RoomReservation.API_HostAddress}}/api/clients/{{id}}
 
 ###
@@ -30,14 +30,47 @@ GET {{RoomReservation.API_HostAddress}}/api/bookings
 
 ###
 
+// get with google
+GET {{RoomReservation.API_HostAddress}}/api/bookings/getreservations
+Content-Type: application/json
+clientId: 2
 
+{
+     
+    "externalService" : "google"
+}
+###
+
+// get with ms365
+GET {{RoomReservation.API_HostAddress}}/api/bookings/getreservations
+Content-Type: application/json
+clientId: 2
+
+{
+     
+    "externalService" : "ms365"
+}
+###
+
+// get with default
+GET {{RoomReservation.API_HostAddress}}/api/bookings/getreservations
+Content-Type: application/json
+clientId: 3
+
+{
+     
+    "externalService" : ""
+}
+###
+
+// get with unknown service
 GET {{RoomReservation.API_HostAddress}}/api/bookings/getreservations
 Content-Type: application/json
 clientId: 1
 
 {
      
-    "externalService" : "google"
+    "externalService" : "xyz"
 }
 ###
 

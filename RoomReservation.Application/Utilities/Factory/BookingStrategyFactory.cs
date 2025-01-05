@@ -20,9 +20,10 @@ internal class BookingStrategyFactory : IBookingStrategyFactory
     {
         var strategy = _strategies.Where(s => s.ServiceName.Equals(externalService, StringComparison.OrdinalIgnoreCase));
         
-        if (strategy == null)
+        // if the external service is not supported, it will default to DefaultStrategy
+        if (strategy.Count() == 0)
         {
-            throw new InvalidOperationException($"No booking strategy found for ID: {externalService}");
+            strategy = _strategies.Where(s => s.ServiceName.Equals(string.Empty));
         }
 
         if (strategy.Count() > 1) 

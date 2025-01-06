@@ -20,6 +20,7 @@ internal class BookingMapper : IBookingMapper
             EndTime = booking.EndTime.ToUniversalTime(),
             RoomId = booking.RoomId,
             Title = booking.Title,
+            ExternalService = booking.ExternalService
         };
     }
 

@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<ErrorHandlerMiddleware>();
+builder.Services.AddScoped<TimingHandlerMiddleware>();
 
 builder.Services.AddSwaggerGen();
 
@@ -34,7 +35,8 @@ await seeder.Seed();
 
 // Configure the HTTP request pipeline.
 
-app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<TimingHandlerMiddleware>();
 
 app.UseSerilogRequestLogging();
 

@@ -8,5 +8,6 @@ public static class ServiceCollectionExtensions
     public static void AddCommonServices(this IServiceCollection services)
     {
         services.AddSingleton<IRabbitMqProducer, RabbitMqProducer>();
+        services.AddScoped<IRabbitMqConsumer, RabbitMqConsumer>();
     }
 }

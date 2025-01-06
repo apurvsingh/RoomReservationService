@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using RoomReservation.Application.Services;
+using RoomReservation.Common.RabbitMq;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
-using System.Diagnostics;
 
 namespace RoomReservation.Application.Utilities.Strategy.Booking;
 
@@ -10,13 +10,16 @@ public class GoogleBookingStrategy : IBookingStrategy
 {
     private readonly ILogger _logger;
     private readonly IBookingRepository _bookingRepository;
+    private readonly IRabbitMqProducer _rabbitMqProducer;
 
     public GoogleBookingStrategy(
         IBookingRepository bookingRepository,
-        ILogger<BookingService> logger)
+        ILogger<BookingService> logger,
+        IRabbitMqProducer rabbitMqProducer)
     {
         _bookingRepository = bookingRepository;
         _logger = logger;
+        _rabbitMqProducer = rabbitMqProducer;
     }
 
     public string ServiceName => ExternalServices.Google;
@@ -35,5 +38,12 @@ public class GoogleBookingStrategy : IBookingStrategy
 
         var bookings = await _bookingRepository.GetAllBookingsByClientIdAsync(booking);
         return bookings;
+    }
+
+    public void CreateBookingRabbitMq(string clientId, Domain.Entities.Booking bookingReq)
+    {
+        _logger.LogInformation("Creating a new booking using Google Service with RabbitMq");
+
+        _rabbitMqProducer.SendBooking(bookingReq);
     }
 }

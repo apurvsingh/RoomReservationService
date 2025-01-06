@@ -1,20 +1,24 @@
 ﻿using Microsoft.Extensions.Logging;
+using RoomReservation.Common.RabbitMq;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Repositories;
 
 namespace RoomReservation.Application.Utilities.Strategy.Booking
 {
-    public class Ms365BookingStrategy: IBookingStrategy
+    public class Ms365BookingStrategy : IBookingStrategy
     {
         private readonly ILogger _logger;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IRabbitMqProducer _rabbitMqProducer;
 
         public Ms365BookingStrategy(
         IBookingRepository bookingRepository,
-        ILogger<Ms365BookingStrategy> logger)
+        ILogger<Ms365BookingStrategy> logger,
+        IRabbitMqProducer rabbitMqProducer)
         {
             _bookingRepository = bookingRepository;
             _logger = logger;
+            _rabbitMqProducer = rabbitMqProducer;
         }
 
         public string ServiceName => ExternalServices.Microsoft365;
@@ -33,6 +37,13 @@ namespace RoomReservation.Application.Utilities.Strategy.Booking
 
             var bookings = await _bookingRepository.GetAllBookingsByClientIdAsync(booking);
             return bookings;
+        }
+
+        public void CreateBookingRabbitMq(string clientId, Domain.Entities.Booking bookingReq)
+        {
+            _logger.LogInformation("Creating a new booking using MS365 Service with RabbitMq");
+
+            _rabbitMqProducer.SendBooking(bookingReq);
         }
     }
 }

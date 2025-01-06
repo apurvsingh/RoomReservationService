@@ -3,6 +3,7 @@ using RoomReservation.Application.Dtos.Booking;
 using RoomReservation.Application.Mappers.Booking;
 using RoomReservation.Application.Utilities.Factory;
 using RoomReservation.Application.Utilities.Strategy.Booking;
+using RoomReservation.Common.RabbitMq;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Exceptions;
 using RoomReservation.Domain.Repositories;
@@ -15,14 +16,15 @@ public interface IBookingService
     Task<IEnumerable<BookingDto>> GetBookings();
     Task<IEnumerable<BookingDto>> GetBookingsByClientId (string id, BookingRequestDto bookingRequest);
     Task<BookingDto> CreateBooking(string clientId, BookingRequestDto bookingRequestDto);
-    Task<BookingDto> CreateBookingRabbitMq(string clientId, BookingRequestDto bookingRequestDto);
+    void CreateBookingRabbitMq(string clientId, BookingRequestDto bookingRequestDto);
 }
 
 public class BookingService(
         IBookingRepository bookingRepository,
         IBookingMapper bookingMapper,
         ILogger<BookingService> logger,
-        IBookingStrategyFactory _strategyFactory) : IBookingService
+        IBookingStrategyFactory _strategyFactory,
+        IRabbitMqConsumer rabbitMqConsumer) : IBookingService
 {
     
     public async Task<IEnumerable<BookingDto>> GetBookings()
@@ -92,7 +94,7 @@ public class BookingService(
         return bookingResponse;
     }
 
-    public async Task<BookingDto> CreateBookingRabbitMq(string clientId, BookingRequestDto bookingRequestDto)
+    public void CreateBookingRabbitMq(string clientId, BookingRequestDto bookingRequestDto)
     {
         bool parseSuccessful = int.TryParse(clientId, out int intId);
 
@@ -105,23 +107,8 @@ public class BookingService(
 
         var strategy = _strategyFactory.GetStrategy("");
 
-        int result = await strategy.CreateBooking(clientId, bookingReq);
+        rabbitMqConsumer.StartListening();
 
-        var bookingResponse = new BookingDto();
-
-        if (result == -1)
-        {
-            bookingResponse.Validation = new Dtos.Validation()
-            {
-                Message = $"The room with id {bookingReq.RoomId} is already booked during the requested time period. Please try another room or change the time frame."
-            };
-        }
-
-        else
-        {
-            bookingResponse = bookingMapper.MapToBookingDto(bookingReq, result);
-        }
-
-        return bookingResponse;
+        strategy.CreateBookingRabbitMq(clientId, bookingReq);
     }
 }

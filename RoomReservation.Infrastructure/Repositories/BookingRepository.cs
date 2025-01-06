@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RoomReservation.Domain.Entities;
 using RoomReservation.Domain.Exceptions;
@@ -7,7 +9,7 @@ using RoomReservation.Infrastructure.Persistence;
 
 namespace RoomReservation.Infrastructure.Repositories;
 
-internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<BookingRepository> logger) : IBookingRepository
+internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<BookingRepository> logger, IServiceScopeFactory serviceScopeFactory) : IBookingRepository
 {
     public async Task<int> Create(Booking request)
     {
@@ -70,5 +72,45 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
             .ToListAsync();
 
         return bookings;
+    }
+
+    public async Task CreateForRabbitMq(Booking request)
+    {
+        try
+        {
+            using (var scope = serviceScopeFactory.CreateScope()) // Create a scope for each operation
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<RoomReservationsDbContext>();
+
+
+                var isTimeSlotAvailable = !dbContext.Bookings.Where(b => b.RoomId == request.RoomId)
+                    .Any(b => (request.StartTime < b.StartTime && request.EndTime > b.StartTime) ||
+                    (request.StartTime >= b.StartTime && request.StartTime < b.EndTime));
+
+                if (isTimeSlotAvailable)
+                {
+                    dbContext.Bookings.Add(request);
+                    await dbContext.SaveChangesAsync();
+                    return;
+                }
+            }
+        }
+
+        catch (DbUpdateConcurrencyException ex)
+        {
+            logger.LogInformation($"Concurrency conflict detected while trying to create booking : {ex.Message}");
+            // Log the exception and handle conflict resolution
+        }
+
+        catch (DbUpdateException ex)
+        {
+            logger.LogInformation($"Something went wrong at the database level : {ex.Message}");
+            throw new ClientNotFoundException(ex.Message);
+        }
+
+        catch (Exception ex)
+        {
+            throw new BookingNotCreatedException(ex.Message);
+        }
     }
 }

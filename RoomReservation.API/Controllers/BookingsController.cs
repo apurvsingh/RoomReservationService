@@ -61,7 +61,7 @@ namespace RoomReservation.API.Controllers
         [HttpPost]
         [Route("userabbitmq")]
 
-        public async Task<ActionResult<BookingDto>> CreateBookingRabbitMq([FromBody] BookingRequestDto bookingRequestDto)
+        public ActionResult CreateBookingRabbitMq([FromBody] BookingRequestDto bookingRequestDto)
         {
             Request.Headers.TryGetValue("clientId", out var clientId);
 
@@ -70,9 +70,9 @@ namespace RoomReservation.API.Controllers
                 return BadRequest();
             }
 
-            var booking = await bookingService.CreateBooking(clientId.FirstOrDefault(), bookingRequestDto);
+            bookingService.CreateBookingRabbitMq(clientId.FirstOrDefault(), bookingRequestDto);
 
-            return Ok(booking);
+            return Accepted();
         }
     }
 }

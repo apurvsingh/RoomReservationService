@@ -12,8 +12,8 @@ using RoomReservation.Infrastructure.Persistence;
 namespace RoomReservation.Infrastructure.Migrations
 {
     [DbContext(typeof(RoomReservationsDbContext))]
-    [Migration("20250104232009_RemoveOldRelationship")]
-    partial class RemoveOldRelationship
+    [Migration("20250106202331_UTCNewData")]
+    partial class UTCNewData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

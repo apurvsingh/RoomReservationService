@@ -35,4 +35,12 @@ public class DefaultBookingStrategy : IBookingStrategy
         var bookings = await _bookingRepository.GetAllBookingsByClientIdAsync(booking);
         return bookings;
     }
+
+    public async Task<int> CreateBookingRabbitMq(string clientId, Domain.Entities.Booking bookingReq)
+    {
+        _logger.LogInformation("Creating a new booking using Default Service");
+
+        var id = await _bookingRepository.Create(bookingReq);
+        return id;
+    }
 }

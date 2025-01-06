@@ -8,7 +8,7 @@ using System.Text.Json;
 
 public interface IRabbitMqProducer : IDisposable
 {
-
+    void SendBooking(Booking booking);
 }
 
 public class RabbitMqProducer : IRabbitMqProducer

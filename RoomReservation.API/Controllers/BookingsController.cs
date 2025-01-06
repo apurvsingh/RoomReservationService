@@ -57,5 +57,22 @@ namespace RoomReservation.API.Controllers
 
             return Ok(booking);
         }
+
+        [HttpPost]
+        [Route("userabbitmq")]
+
+        public async Task<ActionResult<BookingDto>> CreateBookingRabbitMq([FromBody] BookingRequestDto bookingRequestDto)
+        {
+            Request.Headers.TryGetValue("clientId", out var clientId);
+
+            if (clientId.IsNullOrEmpty() || clientId.FirstOrDefault().IsNullOrEmpty() || bookingRequestDto is null)
+            {
+                return BadRequest();
+            }
+
+            var booking = await bookingService.CreateBooking(clientId.FirstOrDefault(), bookingRequestDto);
+
+            return Ok(booking);
+        }
     }
 }

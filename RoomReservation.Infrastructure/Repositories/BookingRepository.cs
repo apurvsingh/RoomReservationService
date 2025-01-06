@@ -64,9 +64,9 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
     public async Task<List<Booking>> GetAllBookingsByClientIdAsync(Booking request)
     {
         var bookings = await dbContext.Bookings
-            .Where(b => b.ClientId == request.ClientId )
-            //&&
-            //    b.StartTime >= request.StartTime && b.EndTime <= request.EndTime)
+            .Where(booking =>booking.ClientId == request.ClientId &&
+                (request.StartTime < booking.StartTime && request.EndTime > booking.StartTime) ||
+                    (request.StartTime >= booking.StartTime && request.StartTime < booking.EndTime))
             .ToListAsync();
 
         return bookings;

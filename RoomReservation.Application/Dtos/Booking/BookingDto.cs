@@ -8,5 +8,6 @@
         public string? RoomId { get; set; }
         public string? ExternalService { get; set; }
         public Validation? Validation { get; set; }
+        public bool? Created { get; set; }
     }
 }

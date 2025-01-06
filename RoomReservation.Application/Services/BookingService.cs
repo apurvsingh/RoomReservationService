@@ -15,6 +15,7 @@ public interface IBookingService
     Task<IEnumerable<BookingDto>> GetBookings();
     Task<IEnumerable<BookingDto>> GetBookingsByClientId (string id, BookingRequestDto bookingRequest);
     Task<BookingDto> CreateBooking(string clientId, BookingRequestDto bookingRequestDto);
+    Task<BookingDto> CreateBookingRabbitMq(string clientId, BookingRequestDto bookingRequestDto);
 }
 
 public class BookingService(
@@ -34,7 +35,7 @@ public class BookingService(
             return Enumerable.Empty<BookingDto>();
         }
 
-        return bookingMapper.MapToViewModelList(bookings);
+        return bookingMapper.MapToBookingDtoList(bookings);
     }
 
     public async Task<IEnumerable<BookingDto>> GetBookingsByClientId(string clientId, BookingRequestDto bookingRequestDto)
@@ -55,7 +56,7 @@ public class BookingService(
         bookings = await strategy.GetBookings(bookingRequest);
         
 
-        return bookings?.Count > 0  ? bookingMapper.MapToViewModelList(bookings) : emptyList;
+        return bookings?.Count > 0  ? bookingMapper.MapToBookingDtoList(bookings) : emptyList;
     }
 
     public async Task<BookingDto> CreateBooking(string clientId, BookingRequestDto bookingRequestDto)
@@ -74,13 +75,51 @@ public class BookingService(
         int result = await strategy.CreateBooking(clientId, bookingReq);
 
         var bookingResponse = new BookingDto();
-        
-        if(result == -1)
+
+        if (result == -1)
         {
             bookingResponse.Validation = new Dtos.Validation()
             {
                 Message = $"The room with id {bookingReq.RoomId} is already booked during the requested time period. Please try another room or change the time frame."
             };
+        }
+
+        else 
+        {
+            bookingResponse = bookingMapper.MapToBookingDto(bookingReq, result);
+        }
+
+        return bookingResponse;
+    }
+
+    public async Task<BookingDto> CreateBookingRabbitMq(string clientId, BookingRequestDto bookingRequestDto)
+    {
+        bool parseSuccessful = int.TryParse(clientId, out int intId);
+
+        if (!parseSuccessful)
+        {
+            throw new ClientNotFoundException($"Client Id: {clientId} does not exist");
+        }
+
+        var bookingReq = bookingMapper.MapToEnitiy(intId, bookingRequestDto);
+
+        var strategy = _strategyFactory.GetStrategy("");
+
+        int result = await strategy.CreateBooking(clientId, bookingReq);
+
+        var bookingResponse = new BookingDto();
+
+        if (result == -1)
+        {
+            bookingResponse.Validation = new Dtos.Validation()
+            {
+                Message = $"The room with id {bookingReq.RoomId} is already booked during the requested time period. Please try another room or change the time frame."
+            };
+        }
+
+        else
+        {
+            bookingResponse = bookingMapper.MapToBookingDto(bookingReq, result);
         }
 
         return bookingResponse;

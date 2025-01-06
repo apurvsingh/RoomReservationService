@@ -33,10 +33,12 @@ GET {{RoomReservation.API_HostAddress}}/api/bookings
 // get with google
 GET {{RoomReservation.API_HostAddress}}/api/bookings/getreservations
 Content-Type: application/json
-clientId: 2
+clientId: 1
 
 {
      
+    "startTime": "2024-12-10T08:59:00Z", 
+    "endTime": "2024-12-10T10:30:00Z",
     "externalService" : "google"
 }
 ###
@@ -81,8 +83,8 @@ Content-Type: application/json
 clientId: 1
 
 {
-    "startTime": "2025-01-04T14:00:00", 
-    "endTime": "2025-01-04T15:00:00", 
+    "startTime": "2025-01-04T14:00:00Z", 
+    "endTime": "2025-01-04T15:00:00Z", 
     "title": "Team Meeting", 
     "roomId": "5", 
     "externalService" : "google"
@@ -96,8 +98,8 @@ Content-Type: application/json
 clientId: "abc"
 
 {
-    "startTime": "2025-01-04T14:00:00", 
-    "endTime": "2025-01-04T15:00:00", 
+    "startTime": "2025-01-04T14:00:00Z", 
+    "endTime": "2025-01-04T15:00:00Z", 
     "title": "Team Meeting", 
     "roomId": "5", 
     "externalService" : "google"
@@ -112,10 +114,25 @@ Content-Type: application/json
 clientId: 12345
 
 {
-    "startTime": "2025-01-04T14:00:00", 
-    "endTime": "2025-01-04T15:00:00", 
+    "startTime": "2025-01-04T14:00:00Z", 
+    "endTime": "2025-01-04T15:00:00ZS", 
     "title": "Team Meeting", 
     "roomId": "15", 
+    "externalService" : "google"
+}
+
+###
+
+// Valid request - change room Id
+POST {{RoomReservation.API_HostAddress}}/api/bookings
+Content-Type: application/json
+clientId: 1
+
+{
+    "startTime": "2025-01-04T15:00:00Z", 
+    "endTime": "2025-01-04T16:00:00Z", 
+    "title": "Team Meeting", 
+    "roomId": "51", 
     "externalService" : "google"
 }
 

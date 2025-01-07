@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using RoomReservation.Application.Dtos.Booking;
 using RoomReservation.Application.Mappers.Booking;
+using RoomReservation.Application.Services.Redis;
 using RoomReservation.Application.Utilities.Factory;
 using RoomReservation.Application.Utilities.Strategy.Booking;
 using RoomReservation.Common.RabbitMq;
@@ -24,7 +25,8 @@ public class BookingService(
         IBookingMapper bookingMapper,
         ILogger<BookingService> logger,
         IBookingStrategyFactory _strategyFactory,
-        IRabbitMqConsumer rabbitMqConsumer) : IBookingService
+        IRabbitMqConsumer rabbitMqConsumer,
+        IRedisCacheService redisCacheService) : IBookingService
 {
     
     public async Task<IEnumerable<BookingDto>> GetBookings()
@@ -50,15 +52,30 @@ public class BookingService(
             throw new ClientNotFoundException($"Client Id: {clientId} does not exist");
         }
 
+        string cacheKey = $"booking:{clientId}";
+        var cachedBookings = await redisCacheService.GetAsync<IEnumerable<BookingDto>>(cacheKey);
+
+        if (cachedBookings?.ToList().Count > 0)
+        {
+            return cachedBookings.ToList();
+        }
+
         List<Booking>? bookings = null;
+
         Booking bookingRequest = bookingMapper.MapToEnitiy(intId, bookingRequestDto);
 
         var strategy = _strategyFactory.GetStrategy(bookingRequestDto.ExternalService);
 
         bookings = await strategy.GetBookings(bookingRequest);
-        
 
-        return bookings?.Count > 0  ? bookingMapper.MapToBookingDtoList(bookings) : emptyList;
+        if (bookings != null && bookings.Count>0) 
+        {
+            await redisCacheService.SetAsync(cacheKey, bookings);
+
+            return bookingMapper.MapToBookingDtoList(bookings);
+        }
+        
+        return emptyList;
     }
 
     public async Task<BookingDto> CreateBooking(string clientId, BookingRequestDto bookingRequestDto)
@@ -88,6 +105,7 @@ public class BookingService(
 
         else 
         {
+            await redisCacheService.RemoveAsync($"booking:{clientId}");
             bookingResponse = bookingMapper.MapToBookingDto(bookingReq, result);
         }
 

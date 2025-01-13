@@ -30,7 +30,7 @@ internal class BookingRepository(RoomReservationsDbContext dbContext, ILogger<Bo
         catch (DbUpdateConcurrencyException ex)
         {
             logger.LogInformation($"Concurrency conflict detected while trying to create booking : {ex.Message}");
-            // Log the exception and handle conflict resolution
+            throw new BookingNotCreatedException(ex.Message);
         }
 
         catch (DbUpdateException ex)

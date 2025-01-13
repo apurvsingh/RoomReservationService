@@ -12,8 +12,8 @@ using RoomReservation.Infrastructure.Persistence;
 namespace RoomReservation.Infrastructure.Migrations
 {
     [DbContext(typeof(RoomReservationsDbContext))]
-    [Migration("20250106202331_UTCNewData")]
-    partial class UTCNewData
+    [Migration("20250113223726_AddingConcurrencySupport")]
+    partial class AddingConcurrencySupport
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,10 @@ namespace RoomReservation.Infrastructure.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

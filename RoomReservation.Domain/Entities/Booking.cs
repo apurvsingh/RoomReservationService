@@ -21,4 +21,7 @@ public class Booking
     public Client Client { get; set; } = null!;
 
     public string? ExternalService { get; set; }
+
+    [ConcurrencyCheck]
+    public Guid Version { get; set; }
 }

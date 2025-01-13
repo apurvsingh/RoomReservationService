@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RoomReservation.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class UTCNewData : Migration
+    public partial class AddingConcurrencySupport : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,8 @@ namespace RoomReservation.Infrastructure.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoomId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    ExternalService = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ExternalService = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Version = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {

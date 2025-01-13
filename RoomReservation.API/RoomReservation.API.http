@@ -135,7 +135,7 @@ clientId: 1
 {
     "startTime": "2025-01-04T15:00:00Z", 
     "endTime": "2025-01-04T16:00:00Z", 
-    "title": "Team Meeting", 
+    "title": "Delta Team Meeting", 
     "roomId": "51", 
     "externalService" : "google"
 }
